@@ -15,7 +15,6 @@ function createTodo() {
         <i class="bi bi-trash trash" onclick ="removeTodo(this,'${index}')"></i>
       </div>`;
       list.innerHTML += divTodo
-      console.log(divTodo)
   });
   let save = []
   let pTag = document.querySelectorAll('.text')
@@ -40,7 +39,7 @@ function removeTodo(element, index){
     todos.splice(index,1)
     element.parentElement.remove()
     // localStorage.removeItem("INDEX")
-    
+    createTodo()
 }
 
 function addTodoByKeyUp(e) {
@@ -62,7 +61,7 @@ function finishTodo(element){
 
     }
     
-    
+
     
 }
 
