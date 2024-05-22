@@ -1,7 +1,7 @@
 var add = document.querySelector(".btn");
 var input = document.querySelector("input");
 var list = document.querySelector(".list");
-var part = document.querySelector(".part")
+
 input.focus();
 
 let data = localStorage.getItem("LIST")
@@ -11,22 +11,36 @@ function createTodo() {
   list.innerHTML = "";
   todos.forEach((todo, index) => {
     let divTodo = `<div class="part" onclick="finishTodo(this)" >
-    <p class="text">${todo}</p>
+    <p class="text">${todo.text?todo.text:todo}</p>
         <i class="bi bi-trash trash" onclick ="removeTodo(this,'${index}')"></i>
       </div>`;
       list.innerHTML += divTodo
+      console.log(divTodo)
   });
-  localStorage.setItem("LIST",JSON.stringify(todos))
+  let save = []
+  let pTag = document.querySelectorAll('.text')
+
+    pTag.forEach((item) => {
+        let parent = item.parentElement
+        console.log(parent)
+        save.push({
+            text: item.textContent,
+            finished: parent.classList.contains('finish')
+        })
+        console.log(item.textContent)
+      })
+
   
+  localStorage.setItem("LIST",JSON.stringify(save))
+
 }
 createTodo()
 
 function removeTodo(element, index){
-    console.log(todos[0])
     todos.splice(index,1)
-    console.log(todos.splice(index,1))
     element.parentElement.remove()
     // localStorage.removeItem("INDEX")
+    
 }
 
 function addTodoByKeyUp(e) {
@@ -40,16 +54,16 @@ function addTodoByKeyUp(e) {
     }
 }
 function finishTodo(element){
-    let saveClass, add, remove
     if(!element.classList.contains("finish")){
         element.classList.add("finish")
+   
     }else{
         element.classList.remove("finish")
 
     }
-    saveClass = {
-        finish : ""
-    }
+    
+    
+    
 }
 
 
